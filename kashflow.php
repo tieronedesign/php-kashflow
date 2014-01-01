@@ -526,6 +526,28 @@ class KashFlowPhpKit {
    			}
    		}
    	}
+
+    public function getInvoicesByDateRange($data)
+    {
+        $xml = '<StartDate>'.$data['StartDate'].'</StartDate>';
+        $xml .= '<EndDate>'.$data['EndDate'].'</EndDate>';
+
+        $response = $this->SendRequest($xml, 'GetInvoicesByDateRange');
+
+        if (isset($response->soapBody->soapFault)) {
+            $this->error_msg['ErrorMsg'] = (string)$response->soapBody->soapFault->faultstring;
+
+            return $this->error_msg;
+        } else {
+            if (is_object($response->soapBody->GetInvoicesByDateRangeResponse)) {
+                return $this->object_to_array($response->soapBody->GetInvoicesByDateRangeResponse->GetInvoicesByDateRangeResult);
+            } else {
+                $this->error_msg['ErrorMsg'] = (string)$response->soapBody->GetCustomerResponse->StatusDetail;
+
+                return $this->error_msg;
+            }
+        }
+    }
    	
    	///////////////////////////////////////////////////
    	// SUPPLIERS
