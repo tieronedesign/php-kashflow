@@ -1,0 +1,10 @@
+{
+    "name": "murrion/php-kashflow",
+    "description": "A PHP kit for web based Kashflow",
+    "minimum-stability": "stable",
+    "authors": [
+        {
+            "name": "stevebates",
+        }
+    ]
+}
